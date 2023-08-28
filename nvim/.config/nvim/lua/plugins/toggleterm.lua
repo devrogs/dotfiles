@@ -8,10 +8,10 @@ return {
       cmd = "lazygit",
       hidden = true,
       direction = "float",
-      on_open = function(term)
+      on_open = function(_)
         vim.cmd("startinsert!")
       end,
-      on_close = function(term)
+      on_close = function(_)
         vim.cmd("startinsert!")
       end
     })

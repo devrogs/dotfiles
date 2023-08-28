@@ -6,6 +6,11 @@ return {
       section_separators = { left = "", right = "" }
     },
     sections = {
+      lualine_a = {
+        {
+          "mode", fmt = function(mode) return " " .. mode end
+        }
+      },
       lualine_b = {
         {
           "diagnostics",

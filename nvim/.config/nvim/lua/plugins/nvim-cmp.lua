@@ -1,7 +1,9 @@
 return {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp"
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-buffer"
   },
   config = function()
     local cmp = require("cmp")
@@ -9,13 +11,15 @@ return {
     cmp.setup({
       sources = cmp.config.sources(
         {
-          { name = "nvim_lsp" }
+          { name = "nvim_lsp" },
+          { name = "path" }
         },
-        { name = "buffer" }
+        {
+          { name = "buffer" }
+        }
       ),
       mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(),
-        -- ["<C-n>"] = cmp.mapping.next_item(),
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
@@ -23,7 +27,6 @@ return {
           local col = vim.fn.col('.') - 1
 
           if cmp.visible() then
-            -- cmp.select_next_item(select_opts)
             cmp.mapping.next_item()
           elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
             fallback()
