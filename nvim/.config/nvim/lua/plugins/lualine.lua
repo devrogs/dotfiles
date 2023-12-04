@@ -1,3 +1,11 @@
+local function background_status()
+  if vim.g["metals_status"] then
+    return vim.g["metals_status"]
+  else
+    return ""
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   opts = {
@@ -6,6 +14,11 @@ return {
       section_separators = { left = "", right = "" }
     },
     sections = {
+      lualine_a = {
+        {
+          "mode", fmt = function(mode) return " " .. mode end
+        }
+      },
       lualine_b = {
         {
           "diagnostics",
@@ -23,6 +36,12 @@ return {
           "filename",
           path = 1
         }
+      },
+      lualine_x = {
+        background_status,
+        "encoding",
+        "fileformat",
+        "filetype"
       }
     }
   },

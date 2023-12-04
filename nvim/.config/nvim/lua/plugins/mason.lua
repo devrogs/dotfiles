@@ -5,6 +5,6 @@ return {
     require("mason").setup(opts)
   end,
   keys = {
-    { "<leader>m", vim.cmd.Mason, mode = "n", desc = "Open Mason" }
+    { "<leader>ma", vim.cmd.Mason, mode = "n", desc = "Open Mason" }
   }
 }
