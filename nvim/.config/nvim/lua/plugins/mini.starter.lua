@@ -1,5 +1,5 @@
 return {
-  "echasnovski/mini.starter",
+  "nvim-mini/mini.starter",
   version = false,
   event = "VimEnter",
   config = function()

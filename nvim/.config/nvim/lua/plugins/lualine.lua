@@ -6,6 +6,29 @@ local function background_status()
   end
 end
 
+local function virtual_env()
+  local venv = os.getenv("VIRTUAL_ENV")
+
+  if venv then
+    local marker = vim.fs.find(
+      { "pyproject.toml", "requirements.txt", "setup.py", ".git" },
+      { upward = true, stop = vim.fn.expand("~") }
+    )[1] -- attempt to find the project root by using popular markers
+
+    if marker then
+      local root = vim.fn.fnamemodify(marker, ":h")
+      print(root)
+      if venv == root .. "/.venv" then
+        return vim.fn.fnamemodify(root, ":t")
+      end
+    else
+      return os.getenv("VIRTUAL_ENV_PROMPT")
+    end
+  else
+    return ""
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   opts = {
@@ -41,7 +64,21 @@ return {
         background_status,
         "encoding",
         "fileformat",
-        "filetype"
+        {
+          "filetype",
+          fmt = function(filetype)
+            if filetype == "python" then
+              local suffix = ""
+              local venv = virtual_env()
+              if venv and venv ~= "" then
+                suffix = " " .. "(" .. venv .. ")"
+              end
+              return filetype .. suffix
+            else
+              return filetype
+            end
+          end
+        }
       }
     }
   },

@@ -19,7 +19,7 @@ return {
   config = function()
     local installed_servers = require("mason-lspconfig").get_installed_servers()
     for _, server in pairs(installed_servers) do
-      require("lspconfig")[server].setup {}
+      vim.lsp.enable(server)
     end
   end,
   keys = {
