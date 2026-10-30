@@ -7,6 +7,7 @@ return {
   cmd = "Telescope",
   opts = {
     defaults = {
+      initial_mode = "insert",
       mappings = {
         i = {
           ["<esc>"] = actions.close

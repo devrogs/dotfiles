@@ -1,5 +1,5 @@
 return {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   build = ":MasonUpdate", -- :MasonUpdate updates registry contents
   config = function(_, opts)
     require("mason").setup(opts)

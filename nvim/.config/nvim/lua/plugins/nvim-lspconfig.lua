@@ -1,26 +1,20 @@
 local M = {}
 
 function M.diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go({ severity = severity })
+    vim.diagnostic.jump({ count = next and 1 or -1, severity = severity, float = true })
   end
 end
 
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {
-    "mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "folke/neodev.nvim"
-  },
-  event = { "BufReadPre", "BufNewFile" },
+  dependencies = { "hrsh7th/cmp-nvim-lsp" },
+  lazy = false,
   config = function()
-    local installed_servers = require("mason-lspconfig").get_installed_servers()
-    for _, server in pairs(installed_servers) do
-      vim.lsp.enable(server)
-    end
+    vim.lsp.config("*", {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    })
   end,
   keys = {
     { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "Go to references" },

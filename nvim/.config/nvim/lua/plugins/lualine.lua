@@ -17,12 +17,12 @@ local function virtual_env()
 
     if marker then
       local root = vim.fn.fnamemodify(marker, ":h")
-      print(root)
       if venv == root .. "/.venv" then
         return vim.fn.fnamemodify(root, ":t")
       end
+      return vim.fn.fnamemodify(venv, ":t")
     else
-      return os.getenv("VIRTUAL_ENV_PROMPT")
+      return os.getenv("VIRTUAL_ENV_PROMPT") or vim.fn.fnamemodify(venv, ":t")
     end
   else
     return ""
